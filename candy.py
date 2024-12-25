@@ -1,0 +1,17 @@
+class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        # time complexity is O(2n)
+        # space compelxity is O(n)
+        # using two pass method- one going from left to right comparing to the next element on the right and the other is vice versa
+        n = len(ratings)
+        result = [1] * n
+
+        for i in range(1, n):
+            if ratings[i] > ratings[i - 1]:
+                result[i] = result[i - 1] + 1
+        sum = result[n - 1]
+        for i in range(n - 2, -1, -1):
+            if ratings[i] > ratings[i + 1]:
+                result[i] = max(result[i], result[i + 1] + 1)
+            sum += result[i]
+        return sum
